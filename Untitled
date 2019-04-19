@@ -1,0 +1,201 @@
+// PRE-FETCHING ON CACHE ACCESS
+
+numIterations_2way_prefetch++;
+index_2way_prefetch = -1;
+// 2-WAY SET ASSOCIATIVITY
+set_2way_prefetch = (hexAddress >> 5) % 256;
+tag_2way_prefetch = hexAddress >> ((unsigned long)log2(256)+5);
+for (int i = 0; i < 2; i++) {
+  if (cache_2way_prefetch[set_2way_prefetch][i].tag == tag_2way_prefetch && cache_2way_prefetch[set_2way_prefetch][i].valid) {
+    hits_2way_prefetch++;
+    index_2way_prefetch = i;
+    break;
+  }
+  if (!cache_2way_prefetch[set_2way_prefetch][i].valid) {
+    index_2way_prefetch = i;
+    break;
+  }
+}
+// if not found in cache, replace current value using LRU policy
+if (index_2way_prefetch == -1) {
+  index_2way_prefetch = getLRU(set_2way_prefetch, cache_2way_prefetch[set_2way_prefetch], 2);
+}
+cache_2way_prefetch[set_2way_prefetch][index_2way_prefetch].valid = true;
+cache_2way_prefetch[set_2way_prefetch][index_2way_prefetch].tag = tag_2way_prefetch;
+cache_2way_prefetch[set_2way_prefetch][index_2way_prefetch].time = numIterations_2way_prefetch;
+
+
+
+numIterations_2way_prefetch++;
+index_2way_prefetch = -1;
+// 2-WAY SET ASSOCIATIVITY
+set_2way_prefetch = ((hexAddress + 32) >> 5) % 256;
+tag_2way_prefetch = (hexAddress + 32) >> ((unsigned long)log2(256)+5);
+for (int i = 0; i < 2; i++) {
+  if (cache_2way_prefetch[set_2way_prefetch][i].tag == tag_2way_prefetch && cache_2way_prefetch[set_2way_prefetch][i].valid) {
+    index_2way_prefetch = i;
+    break;
+  }
+  if (!cache_2way_prefetch[set_2way_prefetch][i].valid) {
+    index_2way_prefetch = i;
+    break;
+  }
+}
+// if not found in cache, replace current value using LRU policy
+if (index_2way_prefetch == -1) {
+  index_2way_prefetch = getLRU(set_2way_prefetch, cache_2way_prefetch[set_2way_prefetch], 2);
+}
+cache_2way_prefetch[set_2way_prefetch][index_2way_prefetch].valid = true;
+cache_2way_prefetch[set_2way_prefetch][index_2way_prefetch].tag = tag_2way_prefetch;
+cache_2way_prefetch[set_2way_prefetch][index_2way_prefetch].time = numIterations_2way_prefetch;
+
+
+
+numIterations_4way_prefetch++;
+index_4way_prefetch = -1;
+// 4-WAY SET ASSOCIATIVITY
+set_4way_prefetch = (hexAddress >> 5) % 128;
+tag_4way_prefetch = hexAddress >> ((unsigned long)log2(128)+5);
+for (int i = 0; i < 4; i++) {
+  if (cache_4way_prefetch[set_4way_prefetch][i].tag == tag_4way_prefetch && cache_4way_prefetch[set_4way_prefetch][i].valid) {
+    hits_4way_prefetch++;
+    index_4way_prefetch = i;
+    break;
+  }
+  if (!cache_4way_prefetch[set_4way_prefetch][i].valid) {
+    index_4way_prefetch = i;
+    break;
+  }
+}
+// if not found in cache, replace current value using LRU policy
+if (index_4way_prefetch == -1) {
+  index_4way_prefetch = getLRU(set_4way_prefetch, cache_4way_prefetch[set_4way_prefetch], 4);
+}
+cache_4way_prefetch[set_4way_prefetch][index_4way_prefetch].valid = true;
+cache_4way_prefetch[set_4way_prefetch][index_4way_prefetch].tag = tag_4way_prefetch;
+cache_4way_prefetch[set_4way_prefetch][index_4way_prefetch].time = numIterations_4way_prefetch;
+
+
+
+numIterations_4way_prefetch++;
+index_4way_prefetch = -1;
+// 4-WAY SET ASSOCIATIVITY
+set_4way_prefetch = ((hexAddress + 32) >> 5) % 128;
+tag_4way_prefetch = (hexAddress + 32) >> ((unsigned long)log2(128)+5);
+for (int i = 0; i < 4; i++) {
+  if (cache_4way_prefetch[set_4way_prefetch][i].tag == tag_4way_prefetch && cache_4way_prefetch[set_4way_prefetch][i].valid) {
+    index_4way_prefetch = i;
+    break;
+  }
+  if (!cache_4way_prefetch[set_4way_prefetch][i].valid) {
+    index_4way_prefetch = i;
+    break;
+  }
+}
+// if not found in cache, replace current value using LRU policy
+if (index_4way_prefetch == -1) {
+  index_4way_prefetch = getLRU(set_4way_prefetch, cache_4way_prefetch[set_4way_prefetch], 4);
+}
+cache_4way_prefetch[set_4way_prefetch][index_4way_prefetch].valid = true;
+cache_4way_prefetch[set_4way_prefetch][index_4way_prefetch].tag = tag_4way_prefetch;
+cache_4way_prefetch[set_4way_prefetch][index_4way_prefetch].time = numIterations_4way_prefetch;
+
+
+numIterations_8way_prefetch++;
+index_8way_prefetch = -1;
+// 8-WAY SET ASSOCIATIVITY
+set_8way_prefetch = (hexAddress >> 5) % 64;
+tag_8way_prefetch = hexAddress >> ((unsigned long)log2(64)+5);
+for (int i = 0; i < 8; i++) {
+  if (cache_8way_prefetch[set_8way_prefetch][i].tag == tag_8way_prefetch && cache_8way_prefetch[set_8way_prefetch][i].valid) {
+    hits_8way_prefetch++;
+    index_8way_prefetch = i;
+    break;
+  }
+  if (!cache_8way_prefetch[set_8way_prefetch][i].valid) {
+    index_8way_prefetch = i;
+    break;
+  }
+}
+// if not found in cache, replace current value using LRU policy
+if (index_8way_prefetch == -1) {
+  index_8way_prefetch = getLRU(set_8way_prefetch, cache_8way_prefetch[set_8way_prefetch], 8);
+}
+cache_8way_prefetch[set_8way_prefetch][index_8way_prefetch].valid = true;
+cache_8way_prefetch[set_8way_prefetch][index_8way_prefetch].tag = tag_8way_prefetch;
+cache_8way_prefetch[set_8way_prefetch][index_8way_prefetch].time = numIterations_8way_prefetch;
+
+
+
+numIterations_8way_prefetch++;
+index_8way_prefetch = -1;
+// 8-WAY SET ASSOCIATIVITY
+set_8way_prefetch = ((hexAddress + 32) >> 5) % 64;
+tag_8way_prefetch = (hexAddress + 32) >> ((unsigned long)log2(64)+5);
+for (int i = 0; i < 8; i++) {
+  if (cache_8way_prefetch[set_8way_prefetch][i].tag == tag_8way_prefetch && cache_8way_prefetch[set_8way_prefetch][i].valid) {
+    index_8way_prefetch = i;
+    break;
+  }
+  if (!cache_8way_prefetch[set_8way_prefetch][i].valid) {
+    index_8way_prefetch = i;
+    break;
+  }
+}
+// if not found in cache, replace current value using LRU policy
+if (index_8way_prefetch == -1) {
+  index_8way_prefetch = getLRU(set_8way_prefetch, cache_8way_prefetch[set_8way_prefetch], 8);
+}
+cache_8way_prefetch[set_8way_prefetch][index_8way_prefetch].valid = true;
+cache_8way_prefetch[set_8way_prefetch][index_8way_prefetch].tag = tag_8way_prefetch;
+cache_8way_prefetch[set_8way_prefetch][index_8way_prefetch].time = numIterations_8way_prefetch;
+
+
+numIterations_16way_prefetch++;
+index_16way_prefetch = -1;
+// 16-WAY SET ASSOCIATIVITY
+set_16way_prefetch = (hexAddress >> 5) % 32;
+tag_16way_prefetch = hexAddress >> ((unsigned long)log2(32)+5);
+for (int i = 0; i < 16; i++) {
+  if (cache_16way_prefetch[set_16way_prefetch][i].tag == tag_16way_prefetch && cache_16way_prefetch[set_16way_prefetch][i].valid) {
+    hits_16way_prefetch++;
+    index_16way_prefetch = i;
+    break;
+  }
+  if (!cache_16way_prefetch[set_16way_prefetch][i].valid) {
+    index_16way_prefetch = i;
+    break;
+  }
+}
+// if not found in cache, replace current value using LRU policy
+if (index_16way_prefetch == -1) {
+  index_16way_prefetch = getLRU(set_16way_prefetch, cache_16way_prefetch[set_16way_prefetch], 16);
+}
+cache_16way_prefetch[set_16way_prefetch][index_16way_prefetch].valid = true;
+cache_16way_prefetch[set_16way_prefetch][index_16way_prefetch].tag = tag_16way_prefetch;
+cache_16way_prefetch[set_16way_prefetch][index_16way_prefetch].time = numIterations_16way_prefetch;
+
+
+
+numIterations_16way_prefetch++;
+index_16way_prefetch = -1;
+// 16-WAY SET ASSOCIATIVITY
+set_16way_prefetch = ((hexAddress + 32) >> 5) % 32;
+tag_16way_prefetch = (hexAddress + 32) >> ((unsigned long)log2(32)+5);
+for (int i = 0; i < 16; i++) {
+  if (cache_16way_prefetch[set_16way_prefetch][i].tag == tag_16way_prefetch && cache_16way_prefetch[set_16way_prefetch][i].valid) {
+    index_16way_prefetch = i;
+    break;
+  }
+  if (!cache_16way_prefetch[set_16way_prefetch][i].valid) {
+    index_16way_prefetch = i;
+    break;
+  }
+}
+// if not found in cache, replace current value using LRU policy
+if (index_16way_prefetch == -1) {
+  index_16way_prefetch = getLRU(set_16way_prefetch, cache_16way_prefetch[set_16way_prefetch], 16);
+}
+cache_16way_prefetch[set_16way_prefetch][index_16way_prefetch].valid = true;
+cache_16way_prefetch[set_16way_prefetch][index_16way_prefetch].tag = tag_16way_prefetch;
+cache_16way_prefetch[set_16way_prefetch][index_16way_prefetch].time = numIterations_16way_prefetch;
