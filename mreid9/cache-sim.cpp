@@ -5,7 +5,6 @@
 #include <vector>
 #include <math.h>
 #include <bitset>
-#include <limits>
 
 
 #define L "L"
@@ -155,7 +154,7 @@ int getLeastFreqUsed(int set, struct cacheLine_EC * cache, int size) {
 
 int getLRU(int set, struct cacheLine * cache, int size) {
   int index = 0;
-  double least = ULONG_MAX; //lowest time value
+  double least = 9999999; //lowest time value
   for (int i = 0; i < size; i++) {
     if (cache[i].time == 0) return index;
     if (cache[i].time < least) {
